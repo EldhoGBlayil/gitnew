@@ -58,3 +58,4 @@ if st.button("Ask"):
             st.error("God not found. Please enter a valid Greek god's name.")
     else:
         st.warning("Please enter a name.")
+print("Hello World")
