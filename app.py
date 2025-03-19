@@ -1,61 +1,48 @@
 import streamlit as st
-import requests
-import random
+import json
 
-# API Configuration
-BASE_URL = "https://danadavis.dev/thegreekmythapi/gods"
-
-def get_god_details(god_name):
-    response = requests.get(f"{BASE_URL}/{god_name.lower()}")
-    if response.status_code == 200:
-        return response.json()
-    return None
-
-# Initialize session state variables
-if 'number' not in st.session_state:
-    st.session_state.number = random.randint(1, 100)
-if 'attempts' not in st.session_state:
-    st.session_state.attempts = 0
+# Load local JSON file
+def load_local_data():
+    try:
+        with open("greek_mythology_data.json", "r", encoding="utf-8") as file:
+            return json.load(file)
+    except json.JSONDecodeError:
+        st.error("Error: Failed to load JSON data. Please check the file format.")
+        return []
+    except FileNotFoundError:
+        st.error("Error: JSON file not found. Please ensure 'greek_mythology_data.json' exists.")
+        return []
 
 # Streamlit UI
-st.title("Number Guessing Game")
-st.write("Guess the number between 1 and 100!")
+st.title("Greek Mythology Encyclopedia")
+st.sidebar.header("Search for a Character")
 
-# User Input
-guess = st.number_input("Enter your guess:", min_value=1, max_value=100, step=1)
+# Load local JSON data
+data = load_local_data()
+names = [character["name"] for character in data] if data else []
 
-if st.button("Submit Guess"):
-    st.session_state.attempts += 1
-    if guess < st.session_state.number:
-        st.warning("Too low! Try again.")
-    elif guess > st.session_state.number:
-        st.warning("Too high! Try again.")
+# User input
+if names:
+    selected_name = st.sidebar.selectbox("Choose a character", names)
+else:
+    st.sidebar.warning("No characters available.")
+    selected_name = None
+
+def display_character_details(character):
+    st.subheader(character["name"])
+    st.write(f"**Type:** {character.get('type', 'Unknown')}")
+    st.write(f"**Parents:** {', '.join(character.get('parents', ['Unknown']))}")
+    st.write(f"**Strengths:** {', '.join(character.get('strengths', ['N/A']))}")
+    st.write(f"**Stories:** {character.get('stories', 'No information available')}")
+    if "image" in character and character["image"]:
+        st.image(character["image"], caption=character["name"], width=300)
     else:
-        st.success(f"Congratulations! You guessed the number in {st.session_state.attempts} attempts.")
-        st.balloons()
-        # Reset the game
-        st.session_state.number = random.randint(1, 100)
-        st.session_state.attempts = 0
+        st.warning("No image available.")
 
-# Streamlit UI
-st.title("Greek Mythology Chatbot")
-st.write("Ask about a Greek god and get detailed information!")
-
-# User Input
-god_name = st.text_input("Enter a Greek god's name", "Zeus")
-
-if st.button("Ask"):  
-    if god_name:
-        data = get_god_details(god_name)
-        if data:
-            st.subheader(f"About {data['name']}")
-            st.write(f"**Title:** {data.get('title', 'Unknown')}")
-            st.write(f"**Parents:** {', '.join(data.get('parents', ['Unknown']))}")
-            st.write(f"**Siblings:** {', '.join(data.get('siblings', ['Unknown']))}")
-            st.write(f"**Children:** {', '.join(data.get('children', ['Unknown']))}")
-            st.write(f"**Description:** {data.get('description', 'No description available.')}")
-        else:
-            st.error("God not found. Please enter a valid Greek god's name.")
+# Display data
+if selected_name:
+    character_data = next((char for char in data if char["name"] == selected_name), None)
+    if character_data:
+        display_character_details(character_data)
     else:
-        st.warning("Please enter a name.")
-print("Hello World")
+        st.error("Character not found in local data.")
