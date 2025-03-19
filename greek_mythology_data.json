@@ -1,0 +1,41 @@
+{
+    "characters": [
+      {
+        "name": "Zeus",
+        "type": "Olympian God",
+        "domain": "King of the Gods, Lightning, Sky",
+        "symbols": ["Thunderbolt", "Eagle", "Oak tree"],
+        "parents": ["Cronus", "Rhea"],
+        "siblings": ["Poseidon", "Hades", "Hera", "Demeter", "Hestia"],
+        "spouse": "Hera",
+        "children": ["Ares", "Athena", "Apollo", "Artemis", "Hermes", "Dionysus", "Heracles"],
+        "notable_myths": ["Titanomachy", "Judgment of Paris", "The Birth of Athena"],
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Zeus_Louvre_G204.jpg/330px-Zeus_Louvre_G204.jpg"
+      },
+      {
+        "name": "Hera",
+        "type": "Olympian Goddess",
+        "domain": "Queen of the Gods, Marriage, Family",
+        "symbols": ["Peacock", "Pomegranate", "Diadem"],
+        "parents": ["Cronus", "Rhea"],
+        "siblings": ["Zeus", "Poseidon", "Hades", "Demeter", "Hestia"],
+        "spouse": "Zeus",
+        "children": ["Ares", "Hebe", "Eileithyia", "Hephaestus"],
+        "notable_myths": ["The Trials of Heracles", "Judgment of Paris"],
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Hera_Campana_Louvre_Ma2283.jpg/330px-Hera_Campana_Louvre_Ma2283.jpg"
+      },
+      {
+        "name": "Poseidon",
+        "type": "Olympian God",
+        "domain": "God of the Sea, Earthquakes, Horses",
+        "symbols": ["Trident", "Horse", "Dolphin"],
+        "parents": ["Cronus", "Rhea"],
+        "siblings": ["Zeus", "Hades", "Hera", "Demeter", "Hestia"],
+        "spouse": "Amphitrite",
+        "children": ["Triton", "Theseus", "Polyphemus"],
+        "notable_myths": ["Creation of Horses", "Contest with Athena"],
+        "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Neptune_statue.jpg/330px-Neptune_statue.jpg"
+      }
+    ]
+  }
+  
